@@ -1,3 +1,8 @@
+/* Description
+  The robot is equipped with 3 IR short sensors located in front, left and right side of the robot
+  The short sensors' range is 2-10 inches. The code below will convert values measured by the sensors to 
+  actual distance in inches and show the results on the LCD
+*/
 #include <RunningMedian.h>
 #include <Adafruit_RGBLCDShield.h>
 
