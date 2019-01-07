@@ -1,3 +1,8 @@
+/* Description
+  The robot is equipped with a long sensor located in front of the robot
+  The sensor's range is 8-59 inches. The code below will convert values measured by the sensor to 
+  actual distance in inches and show the results on the LCD
+*/
 #include <Adafruit_RGBLCDShield.h>
 #include <RunningMedian.h>
 #include <Servo.h>  // Include servo library
