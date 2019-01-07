@@ -1,3 +1,6 @@
+/* Description
+  The robot moves in a square trajectory with 30 inches of every side.
+*/
 #include <Servo.h>
 #include <Adafruit_RGBLCDShield.h>
 
