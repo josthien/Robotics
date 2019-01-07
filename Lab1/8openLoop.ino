@@ -28,7 +28,6 @@ unsigned long turnThreshold;  //distance threshold for moving right or left in a
 
 void switchState();
 void moveForward();
-void moveBack();
 void moveStop();
 void moveLeft();
 void moveRight();
@@ -100,17 +99,10 @@ void loop()
   delay(10);
 }
 
-
 void moveForward()
 {
   leftServo.writeMicroseconds(1615); 
   rightServo.writeMicroseconds(1300); 
-}
-
-void moveBack()
-{
-  leftServo.writeMicroseconds(1300); 
-  rightServo.writeMicroseconds(1700); 
 }
 
 void moveStop()
@@ -148,7 +140,7 @@ void updateTurningThreshold()
   if (mode == 2)
     turnThreshold = 8000; //for a turn angle of 120 degrees.
   else if (mode == 1)
-    turnThreshold = 15500; //for a distance of 240 degrees. 
+    turnThreshold = 15500; //for a turn angle of 240 degrees. 
 }
 
 void switchState()
