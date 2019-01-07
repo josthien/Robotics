@@ -1,3 +1,6 @@
+/* Description
+  The robot moves in a "8" path. Each circle part of the "8" path has the radius of 30 inches
+*/
 #include <Servo.h>
 #include <Adafruit_RGBLCDShield.h>
 
