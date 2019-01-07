@@ -4,7 +4,6 @@
 Servo leftServo;
 Servo rightServo;
 
-
 unsigned long timeElapsed;
 
 void setup() 
@@ -38,7 +37,7 @@ void moveStop()
   rightServo.write(90); 
 }
 
-void moveRight()  // Dia 30 inches
+void moveRight()  // Radius 30 inches
 {
   leftServo.writeMicroseconds(1600); 
   rightServo.writeMicroseconds(1422);
