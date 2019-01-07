@@ -22,9 +22,7 @@ int fRed;
 int fGreen;
 int fBlue;
 
-
 void setup() {
-  
   //SET RGB SHIELD
   Serial.begin(9600);
   lcd.begin(16, 2);
@@ -40,11 +38,9 @@ void setup() {
   // Setting frequency-scaling to 20%
   digitalWrite(S0,HIGH);
   digitalWrite(S1,LOW);
-
 }
 
 void loop() {
-  
     // Setting red filtered photodiodes to be read
     digitalWrite(S2,LOW);
     digitalWrite(S3,LOW);
@@ -88,7 +84,6 @@ void loop() {
     }
 
 }
-
 
 bool isRed()
 {
