@@ -1,3 +1,8 @@
+/* Description
+The robot performs 4 motions: moving forward, moving backward, clockwise circle, anti-clockwise circle
+The distance for moving straight forward and backward is 70 inches
+The radius of circle is 30 inches
+*/
 #include <Servo.h>
 #include <Adafruit_RGBLCDShield.h>
 
