@@ -34,10 +34,7 @@ void switchState();
 void moveForward();
 void moveBack();
 void moveStop();
-void moveLeft();
-void moveRight();
-void turnRight();
-void turnLeft();
+
 int saturationFunctionRight(); 
 
 void setup() 
@@ -87,30 +84,6 @@ void moveStop()
   lcd.setBacklight(RED); 
 }
 
-void moveRight()  // Dia 30 inches
-{
-  leftServo.writeMicroseconds(1600); //1600 
-  rightServo.writeMicroseconds(1457); //1458
-}
-
-void moveLeft()  // Dia 30 inches
-{
-  leftServo.writeMicroseconds(1545);//1551 
-  rightServo.writeMicroseconds(1400);//1400
-}
-
-void turnRight()  //90 degree right turn
-{
-  leftServo.writeMicroseconds(1700); 
-  rightServo.writeMicroseconds(1700);
-}
-
-void turnLeft()  //90 degree left turn
-{
-  leftServo.writeMicroseconds(1300); 
-  rightServo.writeMicroseconds(1300);
-}
-
 double calculateFrontDistance()
 {
   int sensorValue  = analogRead(ShortFrontSensor);
@@ -130,7 +103,6 @@ double calculateFrontDistance()
 
   return distance;
 }
-
 
 int saturationFunctionRight(float ctrlSignal)
 {
