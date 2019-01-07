@@ -63,7 +63,8 @@ int saturationFunctionLeft();
 float saturationFunctionDistance();
 
 
-void setup() {
+void setup() 
+{
   Serial.begin(9600);
   leftServo.attach(2);
   rightServo.attach(3);
@@ -73,7 +74,6 @@ void setup() {
   lcd.setCursor(0, 0);
   lcd.print("STOP");
   lcd.setBacklight(RED);
-
 }
 
 void loop() 
@@ -146,16 +146,13 @@ void loop()
       break;
       
   }
-
 }
-
 
 void moveForward()
 {
   leftServo.writeMicroseconds(1520); 
   rightServo.writeMicroseconds(1480); 
 }
-
 
 void moveStop()
 {
@@ -208,8 +205,7 @@ void switchState()
     state = 3;
     action = true;
     last = timeElapsed;
-  }
-  
+  } 
 }
 
 double calculateRightDistance()
@@ -225,6 +221,7 @@ double calculateRightDistance()
   lcd.setCursor(0,1);
   lcd.print("R:");
   lcd.setCursor(2,1);
+  
   if (distance >= 2.0 && distance <= 10.0)
     lcd.print(distance);
   else
@@ -241,19 +238,9 @@ double calculateFrontDistance()
   
   double voltage = m*(5.0/1023.0);
   double distance = 5.0146*pow(voltage, -1.055);
-//   
-//  lcd.setCursor(0,0);
-//  lcd.print("F:");
-//  lcd.setCursor(2,0);
-//  if (distance >= 2.0 && distance <= 10.0)
-//    lcd.print(distance);
-//  else
-//    lcd.print("XXXX");
 
-    return distance; 
-
+  return distance; 
 }
-
 
 int saturationFunctionRight(float ctrlSignal)
 {
