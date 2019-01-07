@@ -22,7 +22,6 @@ void setup() {
 }
 
 void loop() {
-
   delay(200);
   lcd.clear();
 
@@ -38,7 +37,6 @@ void loop() {
       lcd.print(shortDistance);
     else
       lcd.print("XXXX");
-
   }
   else if (longDistance >= 10.00 & shortDistance >= 10.00)
   {
@@ -61,6 +59,7 @@ void loop() {
   }
 }
 
+// calculate distance from robot to obstables based on long sensor value
 double calculateLongDistance()
 {
   double distance;
@@ -85,6 +84,7 @@ double calculateLongDistance()
   return distance;
 }
 
+// calculate distance from robot to obstables based on short sensor value
 double calculateShortDistance()
 {
   int sensorValue  = analogRead(ShortFrontSensor);
