@@ -291,7 +291,6 @@ double calculateLeftDistance()
     lcd.print("XXXX");
 
     return distance; 
-
 }
 
 
