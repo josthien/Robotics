@@ -37,7 +37,6 @@ void updateDistanceThreshold();
 
 void setup() 
 {
-//  Serial.begin(9600);
   leftServo.attach(2);
   rightServo.attach(3);
   moveStop();
@@ -58,28 +57,28 @@ void loop()
   switch(state)
   {
     case 0: // for stop state
-        action = false;
-        turning = 0;
+        action = false; // not moving
+        turning = 0; // not turning
         moveStop();
       break;
     case 1: // for forward state
       if (timeElapsed - last < distanceThreshold)  
       {
         turning = 1;
-        action = true;
-        moveForward();
+        action = true; // moving
+        moveForward(); // move forward
       }
       else
       {
-        turning = 2;
-        action = false;
+        turning = 2; // turning
+        action = false; // not moving
       }
       break;
     case 2: // for turning state
       if (timeElapsed - last < turnThreshold)  
       {
-        turning = 2;
-        action = true;
+        turning = 2; // turning
+        action = true; // moving
         if (mode == 1)
           turnLeft();
         else
@@ -95,8 +94,6 @@ void loop()
 
   delay(10);
 }
-
-
 
 void moveForward()
 {
