@@ -1,11 +1,9 @@
-
 //Including libraries
 #include <RunningMedian.h>
 #include <Servo.h>
 #include <Adafruit_RGBLCDShield.h>
 
 //Robot and World variables declaration
-
 //Headings declarations
 typedef enum {NORTH, EAST, SOUTH, WEST} heading;
 #define WEST '<'
@@ -24,7 +22,6 @@ typedef enum {WALL, FREE, VISITED, FIXEDWALL, NOTKNOWN} grid;
 //Defining structure type for world map
 typedef struct {
   grid square[9][9];
-//  grid maze[9][9];
 } worldMap;
 
 //Defining structure type for robot
@@ -39,7 +36,6 @@ worldMap world;   //Creating world struct instance
 robotPosition robot;  //Creating robot struct instance
 
 //Variable declarations
-
 Adafruit_RGBLCDShield lcd = Adafruit_RGBLCDShield();
 
 #define RED 0x1
@@ -87,7 +83,6 @@ int outputControlSignalLeft;  //ur(t) (left motor control signal corresponding t
 
 //Right proportional closed loop feedback variables
 float Pterm2 = 3.0;  //Kp Proportional Gain for closed loop feedback
-//float Iterm2 = 1.0;   //Ki
 double desiredDistance2 = 8.0;  //r(t) = Desired distance to right wall
 double actualDistance2; //y(t) = Actual distance to right wall
 float error2;  //e(t) = r(t) - y(t); //desiredDistance minus actualDistance.
@@ -98,7 +93,6 @@ int outputControlSignalLeft2;  //ur(t) (left motor control signal corresponding 
 
 //Left proportional closed loop feedback variables
 float Pterm3 = 2.0;  //Kp Proportional Gain for right closed loop feedback
-//float Iterm3 = 1.0;   //Ki
 double desiredDistance3 = 6.0;  //r(t) = Desired distance to left wall
 double actualDistance3; //y(t) = Actual distance to left wall
 float error3;  //e(t) = r(t) - y(t); //desiredDistance minus actualDistance.
@@ -122,17 +116,6 @@ int lEncCount = 0;
 int lEncLast = 0;
 int rEncLast = 0;
 
-//// COLOR SENSOR
-//#define S0 4
-//#define S1 5
-//#define S2 6
-//#define S3 7
-//#define sensorOut 8
-//
-//int fRed;
-//int fGreen;
-//int fBlue;
-
 void setup() {
   
   Serial.begin(9600);
@@ -150,17 +133,6 @@ void setup() {
   //SET ENCODERS
   pinMode(lEncPin, INPUT_PULLUP);
   pinMode(rEncPin, INPUT_PULLUP);
-  
-//  //SET COLOR SENSOR
-//  pinMode(S0, OUTPUT);
-//  pinMode(S1, OUTPUT);
-//  pinMode(S2, OUTPUT);
-//  pinMode(S3, OUTPUT);
-//  pinMode(sensorOut, INPUT);
-//  
-//  // Setting frequency-scaling to 20%
-//  digitalWrite(S0,HIGH);
-//  digitalWrite(S1,LOW);
 }
 
 void loop() {
@@ -170,8 +142,6 @@ void loop() {
     timeElapsed = millis();
     stepsMoved = encoderCount();
     buttons = lcd.readButtons();
-//    checkColor();
-//    switchColor();
     
     if(action == false){
       checkSensors(); //Robot checks its sensors and updates local sensor variables
@@ -323,7 +293,7 @@ void runState(){
         action = false;
         forward = false;
         moveStop();
-//        Serial.println(stepsMoved-lastSteps);
+        
         if (stepsMoved-lastSteps >= 100){
           updateForward();
         }
@@ -436,14 +406,6 @@ double calculateRightDistance()
   double voltage = m*(5.0/1023.0);
   double distance = 5.0146*pow(voltage, -1.055);
   
-//  lcd.setCursor(0,1);
-//  lcd.print("R:");
-//  lcd.setCursor(2,1);
-//  if (distance >= 2.0 && distance <= 10.0)
-//    lcd.print(distance);
-//  else
-//    lcd.print("XXXX");
-
   return distance;
 }
 
@@ -455,14 +417,6 @@ double calculateFrontDistance()
   
   double voltage = m*(5.0/1023.0);
   double distance = 5.0146*pow(voltage, -1.055);
-   
-//  lcd.setCursor(7,1);
-//  lcd.print("F:");
-//  lcd.setCursor(9,1);
-//  if (distance >= 2.0 && distance <= 10.0)
-//    lcd.print(distance);
-//  else
-//    lcd.print("XXXX");
 
   return distance; 
 
@@ -477,14 +431,6 @@ double calculateLeftDistance()
   double voltage = m*(5.0/1023.0);
   double distance = 5.0146*pow(voltage, -1.055);
    
-//  lcd.setCursor(0,0);
-//  lcd.print("L:");
-//  lcd.setCursor(2,0);
-//  if (distance >= 2.0 && distance <= 10.0)
-//    lcd.print(distance);
-//  else
-//    lcd.print("XXXX");
-
   return distance; 
 
 }
@@ -492,11 +438,6 @@ double calculateLeftDistance()
 grid checkWallFront(){
 
   double distance = calculateFrontDistance();
-//
-//  lcd.setCursor(7,1);
-//  lcd.print("F:");
-//  lcd.setCursor(9,1);
-//  lcd.print(distance);
   
   if(distance < 7.0){
     switch (robot.theta){
@@ -710,60 +651,6 @@ void initializeWorldMap(){
     world.square[i][0] = FIXEDWALL;
     world.square[i][8] = FIXEDWALL;
   }
-//  //Walls for maze 1
-//  world.square[2][1] = FIXEDWALL;
-//  world.square[2][2] = FIXEDWALL;
-//  world.square[2][3] = FIXEDWALL;
-//  world.square[2][4] = FIXEDWALL;
-//  world.square[2][6] = FIXEDWALL;
-//  world.square[3][4] = FIXEDWALL;
-//  world.square[3][6] = FIXEDWALL;
-//  world.square[4][2] = FIXEDWALL;
-//  world.square[4][4] = FIXEDWALL;
-//  world.square[4][6] = FIXEDWALL;
-//  world.square[5][2] = FIXEDWALL;
-//  world.square[5][6] = FIXEDWALL;
-//  world.square[6][2] = FIXEDWALL;
-//  world.square[6][3] = FIXEDWALL;
-//  world.square[6][4] = FIXEDWALL;
-//  world.square[6][5] = FIXEDWALL;
-//  world.square[6][6] = FIXEDWALL;
-
-//  //Walls for maze 3
-//  world.square[2][2] = FIXEDWALL;
-//  world.square[2][3] = FIXEDWALL;
-//  world.square[2][4] = FIXEDWALL;
-//  world.square[2][5] = FIXEDWALL;
-//  world.square[2][6] = FIXEDWALL;
-//  world.square[3][6] = FIXEDWALL;
-//  world.square[4][2] = FIXEDWALL;
-//  world.square[4][6] = FIXEDWALL;
-//  world.square[5][2] = FIXEDWALL;
-//  world.square[6][2] = FIXEDWALL;
-//  world.square[6][3] = FIXEDWALL;
-//  world.square[6][4] = FIXEDWALL;
-//  world.square[6][5] = FIXEDWALL;
-//  world.square[6][6] = FIXEDWALL;
-
-  //Walls for maze 2
-//  world.square[2][1] = FIXEDWALL;
-//  world.square[2][2] = FIXEDWALL;
-//  world.square[2][3] = FIXEDWALL;
-//  world.square[2][4] = FIXEDWALL;
-//  world.square[2][6] = FIXEDWALL;
-//  world.square[3][4] = FIXEDWALL;
-//  world.square[3][6] = FIXEDWALL;
-//  world.square[4][2] = FIXEDWALL;
-//  world.square[4][3] = FIXEDWALL;
-//  world.square[4][4] = FIXEDWALL;
-//  world.square[4][6] = FIXEDWALL;
-//  world.square[5][2] = FIXEDWALL;
-//  world.square[5][6] = FIXEDWALL;
-//  world.square[6][2] = FIXEDWALL;
-//  world.square[6][4] = FIXEDWALL;
-//  world.square[6][5] = FIXEDWALL;
-//  world.square[6][6] = FIXEDWALL;
-
 }
 
 void initializeRobot(){
@@ -779,7 +666,6 @@ void initializeRobot(){
 
   //Updating world map square grid with VISITED location
   world.square[robot.x][robot.y] = VISITED;
-  
 }
 
 void updateRobotCompass(){
@@ -821,13 +707,6 @@ void updateRobotCompass(){
 
 
 void updateWorldMap(){
-
-  //Placing robot on world map
-//  world.square[robot.x][robot.y] = robot.theta;
-  
-//  //Updating world map square grid with VISITED location
-//  world.square[robot.x][robot.y] = VISITED;
-
   switch (robot.theta){
     case NORTH:{
       world.square[robot.x][robot.y - 1] = robot.sensorLeft;
@@ -875,7 +754,6 @@ void printLCD(){
       }
   }
   int gridNo = updateGridNumber();
-//  printf("\nG%d \tW%c N%c E%c S%c\n", gridNo, robot.west, robot.north, robot.east, robot.south);  //Have to fix this
 
   //Printing LCD info on Serial monitor
   Serial.print("\n");
@@ -910,32 +788,60 @@ void printLCD(){
   lcd.print("W");
   lcd.setCursor(4, 1);
 //  lcd.print(char(robot.west));
-  if(robot.west == FIXEDWALL){lcd.print("X");}else if(robot.west == VISITED){lcd.print("0");}else if(robot.west == NOTKNOWN){lcd.print("U");}else{lcd.print("0");}
+  if(robot.west == FIXEDWALL){
+    lcd.print("X");
+  } else if(robot.west == VISITED){
+    lcd.print("0");
+  } else if(robot.west == NOTKNOWN){
+    lcd.print("U");
+  } else{
+    lcd.print("0");
+  }
 
   //North
   lcd.setCursor(6, 1);
   lcd.print("N");
   lcd.setCursor(7, 1);
-//  lcd.print(char(robot.north));
-  if(robot.north == FIXEDWALL){lcd.print("X");}else if(robot.north == VISITED){lcd.print("0");}else if(robot.north == NOTKNOWN){lcd.print("U");}else{lcd.print("0");}
+
+  if(robot.north == FIXEDWALL){
+    lcd.print("X");
+  } else if(robot.north == VISITED){
+    lcd.print("0");
+  } else if(robot.north == NOTKNOWN){
+    lcd.print("U");
+  } else{
+    lcd.print("0");
+  }
 
   //South
   lcd.setCursor(9, 1);
   lcd.print("S");
   lcd.setCursor(10, 1);
-//  lcd.print(char(robot.south));
-  if(robot.south == FIXEDWALL){lcd.print("X");}else if(robot.south == VISITED){lcd.print("0");}else if(robot.south == NOTKNOWN){lcd.print("U");}else{lcd.print("0");}
+
+  if(robot.south == FIXEDWALL){
+    lcd.print("X");
+  } else if(robot.south == VISITED){
+    lcd.print("0");
+  } else if(robot.south == NOTKNOWN){
+    lcd.print("U");
+  } else{
+    lcd.print("0");
+  }
 
   //East
   lcd.setCursor(12, 1);
   lcd.print("E");
   lcd.setCursor(13, 1);
-//  lcd.print(char(robot.east));
-  if(robot.east == FIXEDWALL){lcd.print("X");}else if(robot.east == VISITED){lcd.print("0");}else if(robot.east == NOTKNOWN){lcd.print("U");}else{lcd.print("0");}
 
-//  //First line
-//  lcd.setCursor(0, 0);
-//  lcd.print(char(robot.east));
+  if(robot.east == FIXEDWALL){
+    lcd.print("X");
+  } else if(robot.east == VISITED){
+    lcd.print("0");
+  } else if(robot.east == NOTKNOWN){
+    lcd.print("U");
+  } else{
+    lcd.print("0");
+  }
   
   int counter = 0;
   for (i = 1; i <= 7; i = i + 2){
@@ -952,7 +858,6 @@ void printLCD(){
         }
       }
   }
-
 }
 
 void printWorldMap(){
@@ -974,9 +879,7 @@ void printWorldMap(){
         }
       }
   }
-  Serial.print("=================\n");
-  
-    
+  Serial.print("=================\n");  
 }
 
 
@@ -1050,7 +953,6 @@ bool allSquaresVisited(){
   else{
     return false;
   }
-
 }
 
 void checkSensors(){
@@ -1062,10 +964,6 @@ void checkSensors(){
 }
 
 void updateForward(){
-  
-//  //Remove robot footprint from old grid
-//  world.square[robot.x][robot.y] = FREE;
-  
   switch (robot.theta){
     case NORTH:{
       robot.x--;
@@ -1081,7 +979,6 @@ void updateForward(){
       world.square[robot.x][robot.y] = VISITED;
       break;
     }
-
     case SOUTH:{
       robot.x++;
       world.square[robot.x][robot.y] = VISITED;
@@ -1097,7 +994,6 @@ void updateForward(){
       break;
     }
   }
-
 }
 
 void updateLeft(){
@@ -1110,7 +1006,6 @@ void updateLeft(){
       robot.theta = NORTH;
       break;
     }
-
     case SOUTH:{
       robot.theta = EAST;
       break;
@@ -1123,7 +1018,6 @@ void updateLeft(){
 }
 
 void updateRight(){
-
   switch (robot.theta){
     case NORTH:{
       robot.theta = EAST;
@@ -1133,7 +1027,6 @@ void updateRight(){
       robot.theta = SOUTH;
       break;
     }
-
     case SOUTH:{
       robot.theta = WEST;
       break;
@@ -1146,7 +1039,6 @@ void updateRight(){
 }
 
 void updateUturn(){
-
   switch (robot.theta){
     case NORTH:{
       robot.theta = SOUTH;
@@ -1156,7 +1048,6 @@ void updateUturn(){
       robot.theta = WEST;
       break;
     }
-
     case SOUTH:{
       robot.theta = NORTH;
       break;
@@ -1167,79 +1058,6 @@ void updateUturn(){
     }
   }
 }
-
-//void checkColor(){
-//  // Setting red filtered photodiodes to be read
-//  digitalWrite(S2,LOW);
-//  digitalWrite(S3,LOW);
-//  fRed = pulseIn(sensorOut, LOW);
-////  lcd.setCursor(1,1);
-////  lcd.print(fRed);
-////  delay(100);
-//
-//  // Setting Green filtered photodiodes to be read
-//  digitalWrite(S2,HIGH);
-//  digitalWrite(S3,HIGH);
-//  fGreen = pulseIn(sensorOut, LOW);
-////  lcd.setCursor(5,1);
-////  lcd.print(fGreen);
-////  delay(100);
-//
-//  // Setting Blue filtered photodiodes to be read
-//  digitalWrite(S2,LOW);
-//  digitalWrite(S3,HIGH);
-//  fBlue = pulseIn(sensorOut, LOW);
-////  lcd.setCursor(9,1);
-////  lcd.print(fBlue);
-////  delay(100);
-////  lcd.clear();
-//}
-
-//void switchColor(){
-//  if (isRed())
-//  {
-////    redColorCounter = 1;
-////    brownColorCounter = 0;
-////    lcd.clear();
-////    lcd.setCursor(1,0);
-////    lcd.print("RED");
-////    lcd.setBacklight(RED);
-//    flashColor();
-//  }
-//
-//  if (isBlue())
-//  {
-////    blueColorCounter = 1;
-////    lcd.clear();
-////    lcd.setCursor(1,0);
-////    lcd.print("BLUE");
-////    lcd.setBacklight(BLUE);
-//    flashColor();
-//  }
-//}
-
-
-//bool isRed(){
-//  if ((fRed > 45 && fRed < 55) && (fGreen > 115 && fGreen < 125) && (fBlue > 105 && fBlue < 120))
-//  {
-//    return true;
-//  }
-//  else
-//  {
-//    return false;
-//  } 
-//}
-//
-//bool isBlue(){
-//  if ((fRed > 70 && fRed < 80) && (fGreen > 105 && fGreen < 125) && (fBlue > 80 && fBlue < 95))
-//  {
-//    return true;
-//  }
-//  else
-//  {
-//    return false;
-//  } 
-//}
 
 void flashColor(){
 
@@ -1331,8 +1149,7 @@ int encoderCount(){
   rEncLast = rEncVal;
   
   averageCount = (lEncCount + rEncCount)/2;
-//  Serial.print("Average encoder count: ");
-//  Serial.println(averageCount);
+
   return averageCount;
 }
 
