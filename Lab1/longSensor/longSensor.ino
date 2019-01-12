@@ -22,11 +22,13 @@ double finalDistance = 0.0;
 
 Adafruit_RGBLCDShield lcd = Adafruit_RGBLCDShield();
 
-void setup() {
+void setup() 
+{
   lcd.begin(16, 2); 
 }
 
-void loop() {
+void loop() 
+{
   delay(200);
   lcd.clear();
 
