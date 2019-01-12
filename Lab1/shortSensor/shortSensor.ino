@@ -17,13 +17,15 @@ RunningMedian rightSensorSamples = RunningMedian(10);
 Adafruit_RGBLCDShield lcd = Adafruit_RGBLCDShield();
 
 //set up the lcd of the robot
-void setup() {
+void setup() 
+{
   lcd.begin(16, 2); 
 }
 
 //this function acts as main function for the program
 //the robot will continuously performs the functions called in loop function
-void loop() {
+void loop() 
+{
   calculateFrontDistance();
   calculateLeftDistance();
   calculateRightDistance();
